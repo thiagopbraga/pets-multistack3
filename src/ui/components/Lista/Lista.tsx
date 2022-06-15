@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button } from "@mui/material"
 import { 
     ListaStyled,
     ItemLista,
@@ -6,36 +6,36 @@ import {
     Informacoes,
     Nome,
     Descricao
-} from "./Lista.style"; 
+} from "./Lista.style"
+import { Pet } from '../../../data/@types/Pet'
+import { TextService } from '../../../data/services/TextService'
 
-export default function Lista() {
+interface ListaProps {
+    pets: Pet[];
+    onSelect: (pet: Pet) => void;
+}
+
+export default function Lista(props: ListaProps) {
+    const tamanhoMaximoTexto = 200;
     return (
         <ListaStyled>
-            <ItemLista>
-                <Foto src={'https://image.cachorrogato.com.br/textimages/cachorrinho-ideal'} />
+            {props.pets.map(pet => (
+            <ItemLista key={pet.id}>
+                <Foto src={pet.foto} alt={pet.nome}/>
                 <Informacoes>
-                    <Nome>Celi</Nome>
+                    <Nome>{pet.nome}</Nome>
                     <Descricao>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi enim consequatur cupiditate assumenda unde labore beatae! Dolor, repellat porro ipsa facere necessitatibus fuga et consequatur quidem mollitia eum tenetur sed?
+                        {TextService.limitarTexto(pet.historia, tamanhoMaximoTexto)}
                     </Descricao>
                     <Button
                     variant={'contained'}
-                    >Adotar</Button>
+                    fullWidth
+                    onClick={() => props.onSelect(pet)}
+                    >
+                        Adotar {pet.nome}</Button>
                 </Informacoes>
             </ItemLista>
-
-            <ItemLista>
-                <Foto src={'https://image.cachorrogato.com.br/textimages/cachorrinho-ideal'} />
-                <Informacoes>
-                    <Nome>Celi</Nome>
-                    <Descricao>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi enim consequatur cupiditate assumenda unde labore beatae! Dolor, repellat porro ipsa facere necessitatibus fuga et consequatur quidem mollitia eum tenetur sed?
-                    </Descricao>
-                    <Button
-                    variant={'contained'}
-                    >Adotar</Button>
-                </Informacoes>
-            </ItemLista>
+            ))}
         </ListaStyled>
     )
 }

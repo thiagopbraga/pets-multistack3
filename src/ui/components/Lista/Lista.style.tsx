@@ -14,7 +14,9 @@ export const ItemLista = styled('li')`
     margin: ${({ theme }) => theme.spacing(5)};
 
     ${({ theme }) => theme.breakpoints.down('md')} {
-        background-color: red;
+        grid-template-columns: 1fr;
+        gap: ${({ theme }) => theme.spacing(2)};
+        margin-bottom: ${({ theme }) => theme.spacing(10)};
     };
 `;
 
@@ -23,13 +25,17 @@ export const Foto = styled('img')`
 `;
 
 export const Informacoes = styled('div')`
-
+    display: flex;
+    flex-direction: column;
+    gap: ${({ theme }) => theme.spacing(2)};
+    
 `;
 
 export const Nome = styled('h2')`
-
+    margin: 0;
 `;
 
 export const Descricao = styled('p')`
-
+    margin: 0;
+    word-break: break-word;
 `;
